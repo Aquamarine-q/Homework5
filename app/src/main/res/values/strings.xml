@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Fragments</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_contact">FirstName1 LastName1: +79123456789</string>
+    <string name="second_contact">FirstName2 LastName2: +79098765432</string>
+    <string name="third_contact">FirstName3 LastName3: +75673847657</string>
+    <string name="fourth_contact">FirstName4 LastName4: +71093847551</string>
+    <string name="fifth_contact">FirstName5LastName5: +73075104322</string>
+</resources>
