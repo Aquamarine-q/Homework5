@@ -22,7 +22,14 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         var editText = view.findViewById<EditText>(R.id.contact)
+        parentFragmentManager.setFragmentResultListener("dataFrom1", this
+        ) { requestKey, result ->
+            val data = result.getString("df1")
+            textId = result.getInt("textId")
+            editText.setText(data)
+        }
 
         val saveButton = view.findViewById<Button>(R.id.save_button)
         saveButton.setOnClickListener {
@@ -32,18 +39,13 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
             bundle.putInt("df2Id",textId)
             parentFragmentManager.setFragmentResult("dataFrom2", bundle)
 
-            val firstFragment = FirstFragment()
+            parentFragmentManager.popBackStack()
+
+            /*val firstFragment = FirstFragment()
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.first_fragment, firstFragment, "secondFragment")
-                .addToBackStack(null)
-                .commit()
-        }
-        parentFragmentManager.setFragmentResultListener("dataFrom1", this
-        ) { requestKey, result ->
-            val data = result.getString("df1")
-            textId = result.getInt("textId")
-            editText.setText(data)
+                .commit()*/
         }
     }
 

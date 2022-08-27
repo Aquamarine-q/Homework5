@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 class FirstFragment : Fragment(R.layout.fragment_first) {
 
@@ -27,8 +28,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         val contact5: TextView = view.findViewById(R.id.contact5)
 
         parentFragmentManager.setFragmentResultListener(
-            "dataFrom2", this
-        ) { requestKey, result ->
+            "dataFrom2", this) { requestKey, result ->
             val data = result.getString("df2")
             val dataId = result.getInt("df2Id")
             when (dataId) {
