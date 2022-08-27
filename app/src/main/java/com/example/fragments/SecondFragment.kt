@@ -4,27 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SecondFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class SecondFragment : Fragment(R.layout.fragment_second) {
 
-    /*private var result = "result"
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-       super.onCreate(savedInstanceState)
-       // Use the Kotlin extension in the fragment-ktx artifact
-       setFragmentResultListener("requestKey") { requestKey, bundle ->
-           // We use a String here, but any type that can be put in a Bundle is supported
-           result = bundle.getString("bundleKey")!!
-           // Do something with the result
-       }
-   }*/
+    private var textId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +22,29 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bundle: Bundle = this.requireArguments()
-        val data = bundle.getString("key")
-        view.findViewById<TextView>(R.id.contact).text = data
-        //view.findViewById<TextView>(R.id.contact).text = result
+        var editText = view.findViewById<EditText>(R.id.contact)
+
+        val saveButton = view.findViewById<Button>(R.id.save_button)
+        saveButton.setOnClickListener {
+            editText = view.findViewById(R.id.contact)
+            val bundle = Bundle()
+            bundle.putString("df2",editText.text.toString())
+            bundle.putInt("df2Id",textId)
+            parentFragmentManager.setFragmentResult("dataFrom2", bundle)
+
+            val firstFragment = FirstFragment()
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.first_fragment, firstFragment, "secondFragment")
+                .addToBackStack(null)
+                .commit()
+        }
+        parentFragmentManager.setFragmentResultListener("dataFrom1", this
+        ) { requestKey, result ->
+            val data = result.getString("df1")
+            textId = result.getInt("textId")
+            editText.setText(data)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
